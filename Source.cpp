@@ -1,9 +1,9 @@
 //=========================================================================
 /// \name allPermutationWithSTL.cpp
 /// \version 1.1 (2020.2021)
-/// \brief Algorithme combinatoire récursif
+/// \brief Algorithme combinatoire rÃ©cursif
 //=========================================================================
-/* Remplacez l’include suivant par tous les #include de la STL nécessaires si
+/* Remplacez lâ€™include suivant par tous les #include de la STL nÃ©cessaires si
 vous utilisez Visual Studio */
 
 #include <iostream>
@@ -34,7 +34,9 @@ void afficheMap(map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees);
 array<array<int, nombreDeVilles>, nombreDeVilles> calculDistances(map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees);
 int calculDistanceTotale(vector<string>allCities, array<array<int, nombreDeVilles>, nombreDeVilles>, map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees);
 void afficheMatriceDist(array<array<int, nombreDeVilles>, nombreDeVilles> DIST);
-vector<pair<vector<string>, int>> toutesLesPermutationsV2(vector<string>tournee, int debut, int fin, array<array<int, nombreDeVilles>, nombreDeVilles>DIST, map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees, vector<pair<vector<string>, int>>);
+vector<vector<string>>generateEveryJourney(vector<string>villes, int debut, int fin, vector<vector<string>>allJourney);
+array<pair<vector<string>, int>, nombreCombinaisons>generateEveryDistAssociated(vector<vector<string>>allJourney, map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees, array<array<int, nombreDeVilles>, nombreDeVilles>DIST);
+bool sortElements(int i, int j);
 
 int main()
 {
@@ -53,12 +55,12 @@ int main()
 	auto cityCoordonates = make_tuple(0, 0, 0);
 	map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees;
 	array<array<int, nombreDeVilles>, nombreDeVilles> DIST;
-	
-	//Generation aléatoire
+
+	//Generation alÃ©atoire
 	for (int i = 0; i < nombreDeVilles; i++) {
 		//Partie 3
-		sizeNomVille = cityNameSize(nbRand);//Taille du nom de la ville aléatoire
-		Ville.erase(Ville.begin(), Ville.end());//On Supprime ce que contient Ville à chaque itération
+		sizeNomVille = cityNameSize(nbRand);//Taille du nom de la ville alÃ©atoire
+		Ville.erase(Ville.begin(), Ville.end());//On Supprime ce que contient Ville Ã  chaque itÃ©ration
 		for (int j = 0; j < sizeNomVille; j++) {
 			if (j == 0) {
 				Ville.push_back('A' + cityName(nbRand));
@@ -72,11 +74,11 @@ int main()
 		//Fin Partie 3
 
 		//Partie 4 
-		cityCoordonates = make_tuple(i, cityCoordonate(nbRand), cityCoordonate(nbRand));//On modifie cityCoordonates à chaque fois
+		cityCoordonates = make_tuple(i, cityCoordonate(nbRand), cityCoordonate(nbRand));//On modifie cityCoordonates Ã  chaque fois
 		maMapNomsVillesEtCoordonnees.insert(maMapNomsVillesEtCoordonnees.begin(), pair<string, tuple <int, int, int>>(Ville, cityCoordonates));
 	}
 
-	//afficheMap(maMapNomsVillesEtCoordonnees);
+	afficheMap(maMapNomsVillesEtCoordonnees);
 	//Fin Partie 4
 
 	//Partie 5
@@ -85,35 +87,36 @@ int main()
 
 	//Partie 6
 	//afficheMap(maMapNomsVillesEtCoordonnees);
-	//afficheMatriceDist(DIST);
-	//toutesLesPermutations(vecteurDeNomsDeVille, 0, vecteurDeNomsDeVille.size() - 1);
+	afficheMatriceDist(DIST);
 	//Fin Partie 6
 
 	//Partie 7
-	vector<string>Tournée;
-	//Test
-	int TailleTournée = vecteurDeNomsDeVille.size();
-	for (int i = 0; i < TailleTournée; i++) {
-		Tournée.push_back(vecteurDeNomsDeVille[i]);
-	}
-	int distanceTournée = calculDistanceTotale(Tournée, DIST, maMapNomsVillesEtCoordonnees);
+	vector<vector<string>>tousLesCheminsPossibles = generateEveryJourney(vecteurDeNomsDeVille, 0, vecteurDeNomsDeVille.size() - 1, tousLesCheminsPossibles);
+	array<pair<vector<string>, int>, nombreCombinaisons>toutesLesTourneesEtLeurDistanceTotale = generateEveryDistAssociated(tousLesCheminsPossibles, maMapNomsVillesEtCoordonnees, DIST);
 
-	vector<pair<vector<string>, int>>toutesLesTourneesEtLeurDistanceTotale = toutesLesPermutationsV2(vecteurDeNomsDeVille, 0, vecteurDeNomsDeVille.size() - 1, DIST, maMapNomsVillesEtCoordonnees, toutesLesTourneesEtLeurDistanceTotale);
 	//Affichage
-	/*for (int i = 0; i < toutesLesTourneesEtLeurDistanceTotale.size(); i++) {
-		cout << "La tournée : ";
+	for (int i = 0; i < toutesLesTourneesEtLeurDistanceTotale.size(); i++) {
+		cout << "La tournÃ©e : ";
+		for (int j = 0; j < toutesLesTourneesEtLeurDistanceTotale[i].first.size(); j++) {
+			cout << toutesLesTourneesEtLeurDistanceTotale[i].first[j] << ' ';
+		}
+		cout << "a pour distance totale: " << toutesLesTourneesEtLeurDistanceTotale[i].second << endl;
+	}
+
+	//tri
+	/*sort(toutesLesTourneesEtLeurDistanceTotale[0].second, toutesLesTourneesEtLeurDistanceTotale[toutesLesTourneesEtLeurDistanceTotale.size() - 1].second, sortElements);
+	for (int i = 0; i < toutesLesTourneesEtLeurDistanceTotale.size(); i++) {
+		cout << "La tournÃ©e : ";
 		for (int j = 0; j < toutesLesTourneesEtLeurDistanceTotale[i].first.size(); j++) {
 			cout << toutesLesTourneesEtLeurDistanceTotale[i].first[j] << ' ';
 		}
 		cout << "a pour distance totale: " << toutesLesTourneesEtLeurDistanceTotale[i].second << endl;
 	}*/
 
-
-
 	return 0;
 }
 /// \brief Methode recursive generant l ensemble des mots possibles
-/// avec les caractères du mots villes donne en parametre.
+/// avec les caractÃ¨res du mots villes donne en parametre.
 void toutesLesPermutations(vector<string>villes, int debut, int fin)
 {
 	if (debut == fin) {
@@ -121,8 +124,8 @@ void toutesLesPermutations(vector<string>villes, int debut, int fin)
 			cout << i << ' ';
 		}
 		cout << endl;
-	}	
-	else{
+	}
+	else {
 		// Permutations made
 		for (int i = debut; i <= fin; i++)
 		{
@@ -130,16 +133,16 @@ void toutesLesPermutations(vector<string>villes, int debut, int fin)
 			swap(villes[debut], villes[i]);
 			// Appel Recursif
 			toutesLesPermutations(villes, debut + 1, fin);
-			// On revient à la situation précédente
+			// On revient Ã  la situation prÃ©cÃ©dente
 			swap(villes[debut], villes[i]);
 		}
 	}
 }
 //Partie 4
 void afficheMap(map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees) {
-	map<string, tuple<int, int, int>>::iterator it;	
+	map<string, tuple<int, int, int>>::iterator it;
 	for (it = maMapNomsVillesEtCoordonnees.begin(); it != maMapNomsVillesEtCoordonnees.end(); it++) {
-		cout << "La ville " << it->first << " d'index " << get<0>(it->second) << ", a pour coordonnées en X: " << get<1>(it->second) << " Y: " << get<2>(it->second) << endl;
+		cout << "La ville " << it->first << " d'index " << get<0>(it->second) << ", a pour coordonnÃ©es en X: " << get<1>(it->second) << " Y: " << get<2>(it->second) << endl;
 	}
 }
 //Partie 5
@@ -187,28 +190,35 @@ int calculDistanceTotale(vector<string>allCities, array<array<int, nombreDeVille
 	return distanceTotale;
 }
 
-vector<pair<vector<string>, int>>toutesLesPermutationsV2(vector<string>tournee, int debut, int fin, array<array<int, nombreDeVilles>, nombreDeVilles>DIST, map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees, vector<pair<vector<string>, int>>tempTab){
+vector<vector<string>>generateEveryJourney(vector<string>villes, int debut, int fin, vector<vector<string>>allJourney)
+{
 	if (debut == fin) {
-		pair<vector<string>, int>tempPair;
-		for (auto i : tournee) {
-			tempPair.first.push_back(i);
-		}
-		tempPair.second = calculDistanceTotale(tournee, DIST, maMapNomsVillesEtCoordonnees);
-		tempTab.push_back(tempPair);
-		
-		tempPair.first.erase(tempPair.first.begin(), tempPair.first.end());	
+		allJourney.push_back(villes);
 	}
 	else {
 		// Permutations made
 		for (int i = debut; i <= fin; i++)
 		{
 			// echange des deux lettres
-			swap(tournee[debut], tournee[i]);
+			swap(villes[debut], villes[i]);
 			// Appel Recursif
-			tempTab = toutesLesPermutationsV2(tournee, debut + 1, fin, DIST, maMapNomsVillesEtCoordonnees, tempTab);
-			// On revient à la situation précédente
-			swap(tournee[debut], tournee[i]);
+			allJourney = generateEveryJourney(villes, debut + 1, fin, allJourney);
+			// On revient Ã  la situation prÃ©cÃ©dente
+			swap(villes[debut], villes[i]);
 		}
 	}
-	return tempTab;
+	return allJourney;
+}
+array<pair<vector<string>, int>, nombreCombinaisons>generateEveryDistAssociated(vector<vector<string>>allJourney, map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees, array<array<int, nombreDeVilles>, nombreDeVilles>DIST) {
+	array<pair<vector<string>, int>, nombreCombinaisons>tempArray;
+	for (int i = 0; i < allJourney.size(); i++) {
+		tempArray[i].first = allJourney[i];
+		tempArray[i].second = calculDistanceTotale(allJourney[i], DIST, maMapNomsVillesEtCoordonnees);
+	}
+	return tempArray;
+}
+
+bool sortElements(int i, int j)
+{
+	return (i < j);
 }
