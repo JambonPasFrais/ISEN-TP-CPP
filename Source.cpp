@@ -24,11 +24,12 @@ constexpr int nombreDeLettres = 26;
 constexpr int tailleMinNomVille = 4;
 constexpr int tailleMaxNomVille = 12;
 constexpr int grainePourLeRand = 1;
-constexpr int nombreDeVilles = 4;
-constexpr int nombreCombinaisons = 24;
+constexpr int nombreDeVilles = 6; //Max value for result under 10 seconds
+constexpr int nombreCombinaisons = 720;//same ^
 constexpr int tailleCoteCarte = 100;
 
 using namespace std;
+
 void toutesLesPermutations(vector<string>villes, int debut, int fin);
 void afficheMap(map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees);
 array<array<int, nombreDeVilles>, nombreDeVilles> calculDistances(map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees);
@@ -36,7 +37,9 @@ int calculDistanceTotale(vector<string>allCities, array<array<int, nombreDeVille
 void afficheMatriceDist(array<array<int, nombreDeVilles>, nombreDeVilles> DIST);
 vector<vector<string>>generateEveryJourney(vector<string>villes, int debut, int fin, vector<vector<string>>allJourney);
 array<pair<vector<string>, int>, nombreCombinaisons>generateEveryDistAssociated(vector<vector<string>>allJourney, map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees, array<array<int, nombreDeVilles>, nombreDeVilles>DIST);
-bool sortElements(int i, int j);
+void displayJourney(array<pair<vector<string>, int>, nombreCombinaisons> specifiedArray);
+bool sortElements(pair<vector<string>, int>tab1, pair<vector<string>, int>tab2);
+void displayOptimisedRoute(array<pair<vector<string>, int>, nombreCombinaisons>tab);
 
 int main()
 {
@@ -86,32 +89,23 @@ int main()
 	//Fin partie 5
 
 	//Partie 6
-	//afficheMap(maMapNomsVillesEtCoordonnees);
 	afficheMatriceDist(DIST);
 	//Fin Partie 6
 
 	//Partie 7
 	vector<vector<string>>tousLesCheminsPossibles = generateEveryJourney(vecteurDeNomsDeVille, 0, vecteurDeNomsDeVille.size() - 1, tousLesCheminsPossibles);
 	array<pair<vector<string>, int>, nombreCombinaisons>toutesLesTourneesEtLeurDistanceTotale = generateEveryDistAssociated(tousLesCheminsPossibles, maMapNomsVillesEtCoordonnees, DIST);
-
+	
 	//Affichage
-	for (int i = 0; i < toutesLesTourneesEtLeurDistanceTotale.size(); i++) {
-		cout << "La tournée : ";
-		for (int j = 0; j < toutesLesTourneesEtLeurDistanceTotale[i].first.size(); j++) {
-			cout << toutesLesTourneesEtLeurDistanceTotale[i].first[j] << ' ';
-		}
-		cout << "a pour distance totale: " << toutesLesTourneesEtLeurDistanceTotale[i].second << endl;
-	}
-
+	displayJourney(toutesLesTourneesEtLeurDistanceTotale);
+	
 	//tri
-	/*sort(toutesLesTourneesEtLeurDistanceTotale[0].second, toutesLesTourneesEtLeurDistanceTotale[toutesLesTourneesEtLeurDistanceTotale.size() - 1].second, sortElements);
-	for (int i = 0; i < toutesLesTourneesEtLeurDistanceTotale.size(); i++) {
-		cout << "La tournée : ";
-		for (int j = 0; j < toutesLesTourneesEtLeurDistanceTotale[i].first.size(); j++) {
-			cout << toutesLesTourneesEtLeurDistanceTotale[i].first[j] << ' ';
-		}
-		cout << "a pour distance totale: " << toutesLesTourneesEtLeurDistanceTotale[i].second << endl;
-	}*/
+	array<pair<vector<string>, int>, nombreCombinaisons>::iterator it1, it2;
+	it1 = toutesLesTourneesEtLeurDistanceTotale.begin();
+	it2 = toutesLesTourneesEtLeurDistanceTotale.end();
+	sort(it1, it2, sortElements);
+	displayOptimisedRoute(toutesLesTourneesEtLeurDistanceTotale);
+	//Fin Partie 7
 
 	return 0;
 }
@@ -151,14 +145,14 @@ array<array<int, nombreDeVilles>, nombreDeVilles> calculDistances(map<string, tu
 	map<string, tuple<int, int, int>>::iterator it;
 	map<string, tuple<int, int, int>>::iterator it2;
 	it = maMapNomsVillesEtCoordonnees.begin();
-	for (int i = 0; i < DIST.size(); i++) {
+	for (int i = 0; i < (signed)DIST.size(); i++) {
 		it2 = maMapNomsVillesEtCoordonnees.begin();
-		for (int j = 0; j < DIST.size(); j++) {
+		for (int j = 0; j < (signed)DIST.size(); j++) {
 			if (i == j) {
 				DIST[i][j] = 0;
 			}
 			else {
-				DIST[i][j] = sqrt(pow(get<1>(it->second) - get<1>(it2->second), 2) + pow(get<2>(it->second) - get<2>(it2->second), 2));
+				DIST[i][j] = (int)sqrt(pow(get<1>(it->second) - get<1>(it2->second), 2) + pow(get<2>(it->second) - get<2>(it2->second), 2));
 			}
 			it2++;
 		}
@@ -168,8 +162,8 @@ array<array<int, nombreDeVilles>, nombreDeVilles> calculDistances(map<string, tu
 }
 //Partie 6
 void afficheMatriceDist(array<array<int, nombreDeVilles>, nombreDeVilles> DIST) {
-	for (int i = 0; i < DIST.size(); i++) {
-		for (int j = 0; j < DIST.size(); j++) {
+	for (int i = 0; i < (signed)DIST.size(); i++) {
+		for (int j = 0; j < (signed)DIST.size(); j++) {
 			cout << "Distance entre ville " << i + 1 << " et ville " << j + 1 << " : " << DIST[i][j] << endl;
 		}
 	}
@@ -180,7 +174,7 @@ int calculDistanceTotale(vector<string>allCities, array<array<int, nombreDeVille
 	if (allCities.size() <= 1) {
 		return 0;
 	}
-	for (int i = 0; i < allCities.size(); i++) {
+	for (int i = 0; i < (signed)allCities.size(); i++) {
 		distanceTotale += DIST[get<0>(maMapNomsVillesEtCoordonnees[allCities[i]])][get<0>(maMapNomsVillesEtCoordonnees[allCities[j]])];
 		j++;
 		if (i == allCities.size() - 2) {
@@ -211,14 +205,36 @@ vector<vector<string>>generateEveryJourney(vector<string>villes, int debut, int 
 }
 array<pair<vector<string>, int>, nombreCombinaisons>generateEveryDistAssociated(vector<vector<string>>allJourney, map<string, tuple<int, int, int>>maMapNomsVillesEtCoordonnees, array<array<int, nombreDeVilles>, nombreDeVilles>DIST) {
 	array<pair<vector<string>, int>, nombreCombinaisons>tempArray;
-	for (int i = 0; i < allJourney.size(); i++) {
+	for (int i = 0; i < (signed)allJourney.size(); i++) {
 		tempArray[i].first = allJourney[i];
 		tempArray[i].second = calculDistanceTotale(allJourney[i], DIST, maMapNomsVillesEtCoordonnees);
 	}
 	return tempArray;
 }
+void displayJourney(array<pair<vector<string>, int>, nombreCombinaisons> specifiedArray) {
+	for (int i = 0; i < specifiedArray.size(); i++) {
+		cout << "La tournée : ";
+		for (int j = 0; j < specifiedArray[i].first.size(); j++) {
+			cout << specifiedArray[i].first[j] << ' ';
+		}
+		cout << "a pour distance totale: " << specifiedArray[i].second << endl;
+	}
+}
 
-bool sortElements(int i, int j)
+bool sortElements(pair<vector<string>, int>tab1, pair<vector<string>, int>tab2)
 {
-	return (i < j);
+	return (tab1.second < tab2.second);
+}
+
+void displayOptimisedRoute(array<pair<vector<string>, int>, nombreCombinaisons>tab) {
+	int i = 0;
+	cout << "Les tournées les plus rapides sont : " << endl;
+	while (tab[i].second <= tab[0].second) {
+		cout << "La tournée ";
+		for (int j = 0; j < (signed)tab[i].first.size(); j++) {
+			cout << tab[i].first[j] << ' ';
+		}
+		cout << "a pour distance totale: " << tab[i].second << endl;
+		i++;
+	}
 }
