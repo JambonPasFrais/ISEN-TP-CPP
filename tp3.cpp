@@ -55,7 +55,7 @@ int main() {
 	//Chrono
 	std::chrono::time_point<std::chrono::system_clock> start, end;
 
-	//Départ course
+	//DÃ©part course
 	//Equipe non associatif
 	start = std::chrono::system_clock::now();
 	for (auto i : Array) {
@@ -86,7 +86,7 @@ int main() {
 	end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
 	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-	std::cout << "Algorithme Non Associatif exécuté en :" << elapsed_seconds.count() << endl;
+	std::cout << "Algorithme Non Associatif exÃ©cutÃ© en :" << elapsed_seconds.count() << endl;
 
 	//Equipe associatif
 	start = std::chrono::system_clock::now();
@@ -116,7 +116,7 @@ int main() {
 	end = std::chrono::system_clock::now();
 	elapsed_seconds = end - start;
 	end_time = std::chrono::system_clock::to_time_t(end);
-	std::cout << "Algorithme Associatif exécuté en :" << elapsed_seconds.count() << endl;
+	std::cout << "Algorithme Associatif exÃ©cutÃ© en :" << elapsed_seconds.count() << endl;
 	//Fin partie 3 & 4 & 5
 
 	return EXIT_SUCCESS;
