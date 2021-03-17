@@ -1,8 +1,12 @@
 #include "Graphe.h"
 
-Graphe::Graphe() {
-
+Graphe<string>::Graphe() {
+	this->vecSommets.push_back("neverland");
+	for (int i = 0; i < TAILLEDUGRAPHE; i++) {
+		for (int j = 0; j < TAILLEDUGRAPHE; j++) {
+			this->arcs[i][j] = INFINI;
+			this->cheminCourt[i][j] = INFINI;
+			this->pointChemin[i][j] = INFINI;
+		}
+	}
 }
-/*Graphe::Graphe(vector<string>, int arcs[TAILLEDUGRAPHE][TAILLEDUGRAPHE], int cheminCourt[TAILLEDUGRAPHE][TAILLEDUGRAPHE], int pointChemin[TAILLEDUGRAPHE][TAILLEDUGRAPHE]) {
-	this->arcs = arcs;
-}*/

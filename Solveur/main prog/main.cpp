@@ -5,8 +5,6 @@
 
 int main()
 {
-    Graphe M;
-
 
 }
 
