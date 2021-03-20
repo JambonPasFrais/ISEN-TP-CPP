@@ -5,7 +5,24 @@
 
 int main()
 {
+	setlocale(LC_ALL, "fr-Fr");
 
+	Graphe<string>test;
+	test.displayGraphe();
+	vector<string>villes;
+	villes.push_back("Lille");
+	villes.push_back("Lens");
+	villes.push_back("Paris");
+	villes.push_back("Bourges");
+	villes.push_back("Lyon");
+	villes.push_back("Marseille");
+	test.setVecSommets(villes);
+	test.displayGraphe();
+	test.setDistance(0, 1, 40);
+	test.setDistance(0, 2, 230);
+	test.setDistance(1, 2, 200);
+
+	return EXIT_SUCCESS;
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage

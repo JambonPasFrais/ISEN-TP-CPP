@@ -19,6 +19,9 @@ private:
 public:
 	Graphe<T>();
 	//Graphe<T>(vector<string> nomsDesVilles, int dist[TAILLEDUGRAPHE][TAILLEDUGRAPHE], int pointsIntermediraires[TAILLEDUGRAPHE][TAILLEDUGRAPHE]);
+	void displayGraphe();
+	void setVecSommets(vector<string>);
+	void setDistance(int, int, int);
 };
 
 
