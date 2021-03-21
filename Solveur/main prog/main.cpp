@@ -14,13 +14,18 @@ int main()
 	villes.push_back("Lens");
 	villes.push_back("Paris");
 	villes.push_back("Bourges");
-	villes.push_back("Lyon");
+	villes.push_back("Clermont-Ferrand");
 	villes.push_back("Marseille");
 	test.setVecSommets(villes);
 	test.displayGraphe();
 	test.setDistance(0, 1, 40);
 	test.setDistance(0, 2, 230);
 	test.setDistance(1, 2, 200);
+	test.setDistance(2, 3, 250);
+	test.setDistance(2, 4, 425);
+	test.setDistance(3, 4, 190);
+	test.setDistance(4, 5, 300);
+	test.updatePointChemin();
 
 	return EXIT_SUCCESS;
 }

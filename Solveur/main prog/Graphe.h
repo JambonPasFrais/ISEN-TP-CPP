@@ -22,6 +22,7 @@ public:
 	void displayGraphe();
 	void setVecSommets(vector<string>);
 	void setDistance(int, int, int);
+	void updatePointChemin();
 };
 
 
