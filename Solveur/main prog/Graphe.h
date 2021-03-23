@@ -3,7 +3,7 @@
 #include <vector>
 
 const int TAILLEDUGRAPHE = 6;
-const int INFINI = 9999999;
+const int INFINI = 999;
 
 using namespace std;
 
@@ -17,12 +17,14 @@ private:
 	int pointChemin[TAILLEDUGRAPHE][TAILLEDUGRAPHE];
 
 public:
-	Graphe<T>();
+	Graphe();
 	//Graphe<T>(vector<string> nomsDesVilles, int dist[TAILLEDUGRAPHE][TAILLEDUGRAPHE], int pointsIntermediraires[TAILLEDUGRAPHE][TAILLEDUGRAPHE]);
 	void displayGraphe();
 	void setVecSommets(vector<string>);
 	void setDistance(int, int, int);
 	void updatePointChemin();
+	void fwAlgorithm();
+	void displayChemin(int, int, bool&) const;
 };
 
 

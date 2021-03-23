@@ -8,16 +8,14 @@ int main()
 	setlocale(LC_ALL, "fr-Fr");
 
 	Graphe<string>test;
-	test.displayGraphe();
 	vector<string>villes;
 	villes.push_back("Lille");
 	villes.push_back("Lens");
 	villes.push_back("Paris");
 	villes.push_back("Bourges");
 	villes.push_back("Clermont-Ferrand");
-	villes.push_back("Marseille");
+	villes.push_back("Montpellier");
 	test.setVecSommets(villes);
-	test.displayGraphe();
 	test.setDistance(0, 1, 40);
 	test.setDistance(0, 2, 230);
 	test.setDistance(1, 2, 200);
@@ -26,6 +24,10 @@ int main()
 	test.setDistance(3, 4, 190);
 	test.setDistance(4, 5, 300);
 	test.updatePointChemin();
+	test.fwAlgorithm();
+	test.displayGraphe();
+
+
 
 	return EXIT_SUCCESS;
 }
