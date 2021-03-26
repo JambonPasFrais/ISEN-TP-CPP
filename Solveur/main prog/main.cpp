@@ -26,6 +26,8 @@ int main()
 	test.updatePointChemin();
 	test.fwAlgorithm();
 	test.displayGraphe();
+	bool value = true;
+	test.displayChemin(0, 5, value);
 
 
 

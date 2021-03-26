@@ -25,6 +25,7 @@ public:
 	void updatePointChemin();
 	void fwAlgorithm();
 	void displayChemin(int, int, bool&) const;
+	void completedDisplayChemin();
 };
 
 
