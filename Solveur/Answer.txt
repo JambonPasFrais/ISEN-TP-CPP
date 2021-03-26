@@ -1,0 +1,7 @@
+Question . A quelle structure de données vue en cours, le tableau 2D arcs vous
+fait-il penser3 ?
+- Ce tableau semble simiaire à une matrice.
+
+Question. Déterminez le nombre d’instructions élémentaires maximales à réaliser
+dans l’ Algorithme de Floyd-Warshall en fonction de n == TAILLEDUGRAPHE.
+- Comme il y a 3 boucles for imbriquées je dirai que c'est n^3 ou n*n*n.
