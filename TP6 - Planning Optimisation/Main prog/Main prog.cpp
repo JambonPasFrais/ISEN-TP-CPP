@@ -5,8 +5,36 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	vector<vector<int>>grapheEtCapacites;
+	vector<int>tempVec;
+	//On initialise toutes les cases à 0
+	for (int j = 0; j <= nombreDeVilles; j++) {
+		tempVec.push_back(0);
+	}
+	for (int i = 0; i <= nombreDeVilles; i++) {
+		grapheEtCapacites.push_back(tempVec);
+	}
 
+	//On initialise quelques cases de manières spécifiques
+	grapheEtCapacites[0][1] = 50;
+	grapheEtCapacites[0][2] = 70;
+	grapheEtCapacites[0][3] = 40;
+	grapheEtCapacites[1][4] = 60;
+	grapheEtCapacites[2][4] = 40;
+	grapheEtCapacites[2][5] = 50;
+	grapheEtCapacites[4][6] = 80;
+	grapheEtCapacites[5][6] = 70;
+
+	//Partie 2.2
+	array<int, nombreDeVilles>cheminAmeliorant;
+	for (int i = 0; i < nombreDeVilles; i++) {
+		cheminAmeliorant[i] = 0;
+	}
+	/* Test */
+	cout << boolalpha << parcoursLargeur(grapheEtCapacites, 0, 6, cheminAmeliorant) << endl;
+
+	//Partie 2.3
+	cout << fordFulkerson(grapheEtCapacites, 0, 6);
     //Partie 2.4
 }
 
