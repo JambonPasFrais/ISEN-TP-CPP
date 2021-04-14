@@ -3,8 +3,9 @@
 #include <iostream>
 #include <queue>
 #include <array>
+#include <locale>
 
-constexpr int nombreDeVilles = 7;
+constexpr int nombreDeVilles = 5;
 constexpr int INFINI = 99999;
 
 using namespace std;
@@ -17,5 +18,5 @@ public:
 	graphe();
 };
 
-bool parcoursLargeur(vector<vector<int>> grapheEtCapacites, int s, int t, array<int, nombreDeVilles>cheminAmeliorant);
+bool parcoursLargeur(vector<vector<int>> grapheEtCapacites, int s, int t, int cheminAmeliorant[nombreDeVilles]);
 int fordFulkerson(vector<vector<int>>, int, int);

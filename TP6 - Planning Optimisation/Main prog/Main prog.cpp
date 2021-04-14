@@ -5,6 +5,9 @@
 
 int main()
 {
+	setlocale(LC_ALL, "fr-FR");
+
+	
 	vector<vector<int>>grapheEtCapacites;
 	vector<int>tempVec;
 	//On initialise toutes les cases à 0
@@ -14,7 +17,8 @@ int main()
 	for (int i = 0; i <= nombreDeVilles; i++) {
 		grapheEtCapacites.push_back(tempVec);
 	}
-
+	//Partie 2
+	/*
 	//On initialise quelques cases de manières spécifiques
 	grapheEtCapacites[0][1] = 50;
 	grapheEtCapacites[0][2] = 70;
@@ -22,20 +26,57 @@ int main()
 	grapheEtCapacites[1][4] = 60;
 	grapheEtCapacites[2][4] = 40;
 	grapheEtCapacites[2][5] = 50;
+	grapheEtCapacites[3][5] = 30;
 	grapheEtCapacites[4][6] = 80;
 	grapheEtCapacites[5][6] = 70;
 
 	//Partie 2.2
-	array<int, nombreDeVilles>cheminAmeliorant;
-	for (int i = 0; i < nombreDeVilles; i++) {
-		cheminAmeliorant[i] = 0;
-	}
-	/* Test */
+	int cheminAmeliorant[nombreDeVilles];
+	// Test
 	cout << boolalpha << parcoursLargeur(grapheEtCapacites, 0, 6, cheminAmeliorant) << endl;
-
 	//Partie 2.3
-	cout << fordFulkerson(grapheEtCapacites, 0, 6);
+	cout << fordFulkerson(grapheEtCapacites, 2, 6) << endl;
     //Partie 2.4
+	cout << fordFulkerson(grapheEtCapacites, 0, 6) << endl;
+	*/
+	//Partie 3.1
+	/*
+	grapheEtCapacites[0][1] = INFINI;
+	grapheEtCapacites[0][2] = INFINI;
+	grapheEtCapacites[0][3] = INFINI;
+	grapheEtCapacites[1][4] = 20;
+	grapheEtCapacites[2][4] = 7;
+	grapheEtCapacites[3][4] = 5;
+	cout << "Production infinie: "<<fordFulkerson(grapheEtCapacites, 0, 4) << endl;*/
+	//Partie 3.2
+	/*
+	grapheEtCapacites[0][1] = 25;
+	grapheEtCapacites[0][2] = 10;
+	grapheEtCapacites[0][3] = 8;
+	grapheEtCapacites[1][4] = 20;
+	grapheEtCapacites[2][4] = 7;
+	grapheEtCapacites[3][4] = 5;
+	cout << "Production Limitée "<<fordFulkerson(grapheEtCapacites, 0, 4)<<endl;
+	*/
+	//Partie 3.3
+	/*
+	grapheEtCapacites[0][1] = 25;
+	grapheEtCapacites[0][2] = 10;
+	grapheEtCapacites[0][3] = 8;
+	grapheEtCapacites[1][4] = 30;
+	grapheEtCapacites[1][3] = 12;
+	grapheEtCapacites[1][2] = 8;
+	grapheEtCapacites[2][4] = 7;
+	grapheEtCapacites[2][1] = 8;
+	grapheEtCapacites[2][3] = 3;
+	grapheEtCapacites[3][2] = 3;
+	grapheEtCapacites[3][1] = 12;
+	grapheEtCapacites[3][4] = 5;
+	cout << "Transfert et production limitées " << fordFulkerson(grapheEtCapacites, 0, 4);*/
+	//Partie 3.4
+
+
+	return EXIT_SUCCESS;
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage

@@ -21,7 +21,7 @@ graphe::graphe() {
 	this->grapheEtCapacites[5][6] = 70;
 }
 
-bool parcoursLargeur(vector<vector<int>> grapheEtCapacites, int s, int t, array<int, nombreDeVilles>cheminAmeliorant) {
+bool parcoursLargeur(vector<vector<int>> grapheEtCapacites, int s, int t, int cheminAmeliorant[nombreDeVilles]) {
 	if (s > t) {
 		return false;
 	}
@@ -55,27 +55,32 @@ bool parcoursLargeur(vector<vector<int>> grapheEtCapacites, int s, int t, array<
 }
 
 //Partie 2 étape 3
-int fordFulkerson(vector<vector<int>>grapeEtCapacites, int s, int t) {
+int fordFulkerson(vector<vector<int>>grapheEtCapacites, int s, int t) {
 	int u = 0, v = 0;
 	vector<vector<int>> grapheResiduel;
-	array<int, nombreDeVilles>cheminAmeliorant;
-	cheminAmeliorant.fill(0);
+	vector<int>tempVec;
+	int cheminAmeliorant[nombreDeVilles];
 	int max_flow = 0;//Valeur de retour
 	int ameliorationFlot = 0;
 
 	//Initialisation
-	for (auto j : grapeEtCapacites) {
-		grapheResiduel.push_back(j);
+	for (int i = 0; i < nombreDeVilles; i++) {
+		for (auto value : grapheEtCapacites[i]) {
+			tempVec.push_back(value);
+		}
+		grapheResiduel.push_back(tempVec);
+		tempVec.erase(tempVec.begin(), tempVec.end());
 	}
 
-	while (parcoursLargeur(grapeEtCapacites, s, t, cheminAmeliorant))
+	while (parcoursLargeur(grapheResiduel, s, t, cheminAmeliorant))
 	{
 		ameliorationFlot = INFINI;
-		for (int v = t; v > s; v--) {
+		for (v = t; v != s; v = cheminAmeliorant[v]) {
 			u = cheminAmeliorant[v];
 			ameliorationFlot = min(ameliorationFlot, grapheResiduel[u][v]);
+			//cout << ameliorationFlot << endl;
 		}
-		for (int v = t; v > s; v--) {
+		for (v = t; v != s; v = cheminAmeliorant[v]) {
 			u = cheminAmeliorant[v];
 			grapheResiduel[u][v] -= ameliorationFlot;
 			grapheResiduel[v][u] += ameliorationFlot;
