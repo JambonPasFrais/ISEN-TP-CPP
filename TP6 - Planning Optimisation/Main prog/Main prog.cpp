@@ -1,5 +1,5 @@
 // Main prog.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
+//Code by Armand DEFFRENNES alias Jambon
 
 #include "graphe.h"
 
@@ -74,18 +74,53 @@ int main()
 	grapheEtCapacites[3][4] = 5;
 	cout << "Transfert et production limitées " << fordFulkerson(grapheEtCapacites, 0, 4);*/
 	//Partie 3.4
-
+	//Start
+	grapheEtCapacites[0][1] = 25;
+	grapheEtCapacites[0][2] = 15;
+	grapheEtCapacites[0][3] = 10;
+	grapheEtCapacites[0][4] = 5;
+	grapheEtCapacites[0][5] = 5;
+	grapheEtCapacites[0][6] = 8;
+	//France Initialisation part 1
+	grapheEtCapacites[1][2] = 15;
+	grapheEtCapacites[1][3] = 10;
+	grapheEtCapacites[1][4] = 10;
+	grapheEtCapacites[1][5] = 10;
+	grapheEtCapacites[1][6] = 10;
+	grapheEtCapacites[1][7] = 14;
+	//France Initialisation part 2
+	grapheEtCapacites[2][3] = 5;
+	grapheEtCapacites[2][4] = 5;
+	grapheEtCapacites[2][5] = 5;
+	grapheEtCapacites[2][6] = 5;
+	grapheEtCapacites[2][7] = 19;
+	//Belgium Initialisation part 1
+	grapheEtCapacites[3][1] = 4;
+	grapheEtCapacites[3][2] = 4;
+	grapheEtCapacites[3][4] = 8;
+	grapheEtCapacites[3][5] = 10;
+	grapheEtCapacites[3][6] = 10;
+	grapheEtCapacites[3][7] = 3;
+	//Belgium Initialisation part 2
+	grapheEtCapacites[4][1] = 8;
+	grapheEtCapacites[4][2] = 8;
+	grapheEtCapacites[4][5] = 5;
+	grapheEtCapacites[4][6] = 5;
+	grapheEtCapacites[4][7] = 10;
+	//Switzerland Initialisation part 1
+	grapheEtCapacites[5][1] = 4;
+	grapheEtCapacites[5][2] = 4;
+	grapheEtCapacites[5][3] = 10;
+	grapheEtCapacites[5][4] = 10;
+	grapheEtCapacites[5][6] = 7;
+	grapheEtCapacites[5][7] = 7;
+	//Switzerland Initialisation part 2
+	grapheEtCapacites[6][1] = 7;
+	grapheEtCapacites[6][2] = 7;
+	grapheEtCapacites[6][3] = 5;
+	grapheEtCapacites[6][4] = 5;
+	grapheEtCapacites[6][7] = 5;
+	cout << "flot_max = " << fordFulkerson(grapheEtCapacites, 0, 7);
 
 	return EXIT_SUCCESS;
 }
-
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
-
-// Astuces pour bien démarrer : 
-//   1. Utilisez la fenêtre Explorateur de solutions pour ajouter des fichiers et les gérer.
-//   2. Utilisez la fenêtre Team Explorer pour vous connecter au contrôle de code source.
-//   3. Utilisez la fenêtre Sortie pour voir la sortie de la génération et d'autres messages.
-//   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
-//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.

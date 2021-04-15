@@ -5,7 +5,7 @@
 #include <array>
 #include <locale>
 
-constexpr int nombreDeVilles = 5;
+constexpr int nombreDeVilles = 8;
 constexpr int INFINI = 99999;
 
 using namespace std;
