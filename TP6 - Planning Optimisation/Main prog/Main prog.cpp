@@ -84,43 +84,33 @@ int main()
 	//France Initialisation part 1
 	grapheEtCapacites[1][2] = 15;
 	grapheEtCapacites[1][3] = 10;
-	grapheEtCapacites[1][4] = 10;
 	grapheEtCapacites[1][5] = 10;
-	grapheEtCapacites[1][6] = 10;
 	grapheEtCapacites[1][7] = 14;
 	//France Initialisation part 2
-	grapheEtCapacites[2][3] = 5;
 	grapheEtCapacites[2][4] = 5;
-	grapheEtCapacites[2][5] = 5;
 	grapheEtCapacites[2][6] = 5;
 	grapheEtCapacites[2][7] = 19;
 	//Belgium Initialisation part 1
 	grapheEtCapacites[3][1] = 4;
-	grapheEtCapacites[3][2] = 4;
 	grapheEtCapacites[3][4] = 8;
 	grapheEtCapacites[3][5] = 10;
-	grapheEtCapacites[3][6] = 10;
 	grapheEtCapacites[3][7] = 3;
 	//Belgium Initialisation part 2
-	grapheEtCapacites[4][1] = 8;
 	grapheEtCapacites[4][2] = 8;
-	grapheEtCapacites[4][5] = 5;
 	grapheEtCapacites[4][6] = 5;
 	grapheEtCapacites[4][7] = 10;
 	//Switzerland Initialisation part 1
 	grapheEtCapacites[5][1] = 4;
-	grapheEtCapacites[5][2] = 4;
 	grapheEtCapacites[5][3] = 10;
-	grapheEtCapacites[5][4] = 10;
 	grapheEtCapacites[5][6] = 7;
 	grapheEtCapacites[5][7] = 7;
 	//Switzerland Initialisation part 2
-	grapheEtCapacites[6][1] = 7;
 	grapheEtCapacites[6][2] = 7;
-	grapheEtCapacites[6][3] = 5;
 	grapheEtCapacites[6][4] = 5;
 	grapheEtCapacites[6][7] = 5;
 	cout << "flot_max = " << fordFulkerson(grapheEtCapacites, 0, 7);
+
+	//Partie 4
 
 	return EXIT_SUCCESS;
 }
